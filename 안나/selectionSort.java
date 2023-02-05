@@ -19,17 +19,19 @@ public class SelectionSort {
 		System.out.println("\n");
 
 		int count=1;
-		for (int i = 0; i < arr.length; i++) {
+		for (int i = 0; i < arr.length-1; i++) {
 			int index=i;
 			for (int j = i+1; j < arr.length; j++) {
 				if (arr[index] < arr[j]) {
 					index=j;
 				}
 			}
+			if(index!=i) {
+				switch_num(index, i, count);
+				count++;
+			}
 
 			
-			switch_num(index, i, count);
-			count++;
 		}
 		
 	}
