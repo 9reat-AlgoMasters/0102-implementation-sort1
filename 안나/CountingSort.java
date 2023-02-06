@@ -1,20 +1,39 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class CountingSort {
-	static int arr[] = {5,5,3,4,5,1,0,4,1,3,0,2,4,2,3,0};
-	static int[] result= new int[arr.length];
-	public static void main(String[] args) {
+	static ArrayList<Integer> arr = new ArrayList<>();
+ 	static int[] result;
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("***Counting Sort***\n");
+		System.out.printf("정렬할 숫자를 띄어쓰기하여 입력하세요 >> ");
+		
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		while(st.hasMoreTokens()) {
+			arr.add(Integer.parseInt(st.nextToken()));
+		}
+		
+		result= new int[arr.size()];
+		
+		System.out.print("오름차순은 1번, 내림차순은 2번을 입력하세요 >> ");
+		int k = Integer.parseInt(br.readLine());
+		
 		
 		System.out.print("기존 => ");
-		for (int j = 0; j < arr.length; j++) {
-			System.out.print(arr[j]+" ");
+		for (int j = 0; j < arr.size(); j++) {
+			System.out.print(arr.get(j)+" ");
 		}
 		System.out.println("\n");
 		
 		// 가장 큰 값 찾기
 		int max=0;
-		for (int i = 0; i < arr.length; i++) {
-			if(max<arr[i]) {
-				max=arr[i];
+		for (int i = 0; i < arr.size(); i++) {
+			if(max<arr.get(i)) {
+				max=arr.get(i);
 			}
 		}
 		
@@ -22,17 +41,20 @@ public class CountingSort {
 
 		int count[] = new int[max+1];
 		//각 값의 갯수 담기
-		for (int i = 0; i < arr.length; i++) {
-			count[arr[i]]++;
+		for (int i = 0; i < arr.size(); i++) {
+			count[arr.get(i)]++;
+		}
+		if(k==1) {
+			count = asc(count);
+		}else {
+			count = desc(count);
+			
 		}
 		
-//		count = asc(count);
-		count = desc(count);
-		
 		//자리 찾아주기
-		for (int i = arr.length-1; i >=0; i--) {
-			result[count[arr[i]]-1]=arr[i];
-			count[arr[i]]--;
+		for (int i = arr.size()-1; i >=0; i--) {
+			result[count[arr.get(i)]-1]=arr.get(i);
+			count[arr.get(i)]--;
 			print();
 		}
 		
